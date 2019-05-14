@@ -13,13 +13,14 @@ import android.view.MenuItem;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 
 public class ActividadPrincipal extends AppCompatActivity implements View.OnClickListener {
     //se crea una variable de tipo boleano para rotarlo al clikearlo
     //boolean click=false;
     //se crea variable para tranformar boton an toolbar
-    private FABToolbarLayout morph;
+    private FloatingActionsMenu morph;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +28,9 @@ public class ActividadPrincipal extends AppCompatActivity implements View.OnClic
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // se agrega que sera de tipo final
-         /*final*/  FloatingActionButton fab = findViewById(R.id.fab);
+         /*final*/  //FloatingActionButton fab = findViewById(R.id.fab);
          // se agregan cambios pra transfromar el boton en toolbar
-        morph=(FABToolbarLayout)findViewById(R.id.fabtoolbar);
+        morph =(FloatingActionsMenu)findViewById(R.id.menu_fab);
          //cambios para la animacion de escala en el botom
        /* fab.setScaleX(0);
         fab.setScaleY(0);
@@ -70,18 +71,19 @@ public class ActividadPrincipal extends AppCompatActivity implements View.OnClic
         }*/
        // se crea cambios para animacion rotar al clickearlo
         //fab.setImageResource(android.R.drawable.ic_menu_add);
+        //cambios para transformar boton en toolbar a un boton con menu
         View uno,dos,tres,cuatro;
-        uno=findViewById(R.id.uno);
-        dos=findViewById(R.id.dos);
-        tres=findViewById(R.id.tres);
-        cuatro=findViewById(R.id.cuatro);
+        uno=findViewById(R.id.accion_favorito);
+        dos=findViewById(R.id.accion_buscar);
+        tres=findViewById(R.id.accion_carrito);
+        //cuatro=findViewById(R.id.cuatro);
         //se hace cambios en fab.setOnClickListener( new View.OnClickListener()
 
-        fab.setOnClickListener(this);
+        morph.setOnClickListener(this);
         uno.setOnClickListener(this);
         dos.setOnClickListener(this);
         tres.setOnClickListener(this);
-        cuatro.setOnClickListener(this);
+       // cuatro.setOnClickListener(this);
         /*
         * fab.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -125,11 +127,11 @@ public class ActividadPrincipal extends AppCompatActivity implements View.OnClic
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+   @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.fab){
-            morph.show();
+        if(v.getId()==R.id.menu_fab){
+            morph.setEnabled(true);
         }
-        morph.hide();
+
     }
 }
