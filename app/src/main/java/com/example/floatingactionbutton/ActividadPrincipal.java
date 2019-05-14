@@ -14,7 +14,8 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 
 public class ActividadPrincipal extends AppCompatActivity {
-
+    //se crea una variable de tipo boleano para rotarlo al clikearlo
+    boolean click=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,9 +23,9 @@ public class ActividadPrincipal extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // se agrega que sera de tipo final
-         final  FloatingActionButton fab = findViewById(R.id.fab);
+         /*final*/  FloatingActionButton fab = findViewById(R.id.fab);
          //cambios para la animacion de escala en el botom
-        fab.setScaleX(0);
+       /* fab.setScaleX(0);
         fab.setScaleY(0);
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP){
             final Interpolator interpolator= AnimationUtils.loadInterpolator(getBaseContext(),android.R.interpolator.fast_out_slow_in);
@@ -60,13 +61,24 @@ public class ActividadPrincipal extends AppCompatActivity {
 
                         }
                     });
-        }
+        }*/
+       // se crea cambios para animacion rotar al clickearlo
+        fab.setImageResource(android.R.drawable.ic_menu_add);
+
 
         fab.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Se presiono el FAB", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /*Snackbar.make(view, "Se presiono el FAB", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+                click=!click;
+                if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP){
+                    Interpolator interpolator=AnimationUtils.loadInterpolator(getBaseContext(),android.R.interpolator.fast_out_slow_in);
+                    view.animate()
+                            .rotation(click?45f:0)
+                            .setInterpolator(interpolator)
+                            .start();
+                }
             }
         });
     }
