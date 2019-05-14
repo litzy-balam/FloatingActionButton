@@ -13,9 +13,13 @@ import android.view.MenuItem;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 
-public class ActividadPrincipal extends AppCompatActivity {
+import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
+
+public class ActividadPrincipal extends AppCompatActivity implements View.OnClickListener {
     //se crea una variable de tipo boleano para rotarlo al clikearlo
-    boolean click=false;
+    //boolean click=false;
+    //se crea variable para tranformar boton an toolbar
+    private FABToolbarLayout morph;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +28,8 @@ public class ActividadPrincipal extends AppCompatActivity {
         setSupportActionBar(toolbar);
         // se agrega que sera de tipo final
          /*final*/  FloatingActionButton fab = findViewById(R.id.fab);
+         // se agregan cambios pra transfromar el boton en toolbar
+        morph=(FABToolbarLayout)findViewById(R.id.fabtoolbar);
          //cambios para la animacion de escala en el botom
        /* fab.setScaleX(0);
         fab.setScaleY(0);
@@ -63,24 +69,38 @@ public class ActividadPrincipal extends AppCompatActivity {
                     });
         }*/
        // se crea cambios para animacion rotar al clickearlo
-        fab.setImageResource(android.R.drawable.ic_menu_add);
+        //fab.setImageResource(android.R.drawable.ic_menu_add);
+        View uno,dos,tres,cuatro;
+        uno=findViewById(R.id.uno);
+        dos=findViewById(R.id.dos);
+        tres=findViewById(R.id.tres);
+        cuatro=findViewById(R.id.cuatro);
+        //se hace cambios en fab.setOnClickListener( new View.OnClickListener()
 
-
-        fab.setOnClickListener( new View.OnClickListener() {
+        fab.setOnClickListener(this);
+        uno.setOnClickListener(this);
+        dos.setOnClickListener(this);
+        tres.setOnClickListener(this);
+        cuatro.setOnClickListener(this);
+        /*
+        * fab.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 /*Snackbar.make(view, "Se presiono el FAB", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
-                click=!click;
-                if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP){
-                    Interpolator interpolator=AnimationUtils.loadInterpolator(getBaseContext(),android.R.interpolator.fast_out_slow_in);
-                    view.animate()
-                            .rotation(click?45f:0)
-                            .setInterpolator(interpolator)
-                            .start();
-                }
-            }
-        });
+      /*  click=!click;
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP){
+            Interpolator interpolator=AnimationUtils.loadInterpolator(getBaseContext(),android.R.interpolator.fast_out_slow_in);
+            view.animate()
+                    .rotation(click?45f:0)
+                    .setInterpolator(interpolator)
+                    .start();
+        }
+    }
+});
+        *
+        *
+        * */
     }
 
     @Override
@@ -103,5 +123,13 @@ public class ActividadPrincipal extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId()==R.id.fab){
+            morph.show();
+        }
+        morph.hide();
     }
 }
